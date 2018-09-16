@@ -2,6 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import ListBooks from './ListBooks'
 
 class BooksApp extends React.Component {
   state = {
@@ -55,6 +56,7 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+            <ListBooks/>
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
