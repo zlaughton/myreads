@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 class ListBooks extends Component {
+    getBooksOnShelf = (books, shelfName) => (
+        books.filter((book) => (book.shelf == shelfName))
+    )
 
     render() {
         const books = this.props.books
-        const currentlyReading = books.filter((book) => (book.shelf==='currentlyReading'));
-        const wantToRead = books.filter((book) => (book.shelf==='wantToRead'));
-        const read = books.filter((book) => (book.shelf==='read'));
+        const currentlyReading = this.getBooksOnShelf(books, 'currentlyReading');
+        const wantToRead = this.getBooksOnShelf(books, 'wantToRead');
+        const read = this.getBooksOnShelf(books, 'read');
         const shelves = [currentlyReading, wantToRead, read];
         
         return (
