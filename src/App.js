@@ -22,6 +22,12 @@ class BooksApp extends React.Component {
     })
   }
 
+  changeShelf = (book, newShelf) => {
+    console.log(newShelf)
+    book.shelf = newShelf
+    this.setState(this.state.books)
+  }
+
   render() {
     return (
       <div className="app">
@@ -51,7 +57,10 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <BookCase books={ this.state.books }/>
+            <BookCase
+              books={ this.state.books }
+              changeShelf={ this.changeShelf }
+            />
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
