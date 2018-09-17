@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Shelf from './Shelf';
 
 class BookCase extends Component {
     getBooksOnShelf = (books, shelfName) => (
-        books.filter((book) => (book.shelf == shelfName))
+        books.filter((book) => (book.shelf === shelfName))
     )
 
     render() {
@@ -12,7 +11,6 @@ class BookCase extends Component {
         const currentlyReading = this.getBooksOnShelf(books, 'currentlyReading');
         const wantToRead = this.getBooksOnShelf(books, 'wantToRead');
         const read = this.getBooksOnShelf(books, 'read');
-        const shelves = [currentlyReading, wantToRead, read];
         
         return (
           <div className="book-case">

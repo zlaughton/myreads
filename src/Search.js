@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 
-
-
-
 class Search extends Component {
     state = {
         query: '',
@@ -27,8 +24,8 @@ class Search extends Component {
     }
     
     render() {
-        const { books, changeShelf } = this.props
-        const { query, showingBooks } = this.state
+        const { changeShelf } = this.props
+        const { showingBooks } = this.state
 
         return(
             <div className="search-books">
