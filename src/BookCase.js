@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import Shelf from './Shelf';
 
 class BookCase extends Component {
-    getBooksOnShelf = (books, shelfName) => (
-        books.filter((book) => (book.shelf === shelfName))
-    )
+  getBooksOnShelf = (books, shelfName) => (
+    books.filter((book) => (book.shelf === shelfName))
+  )
 
-    render() {
-        const { books, changeShelf } = this.props
-        const currentlyReading = this.getBooksOnShelf(books, 'currentlyReading');
-        const wantToRead = this.getBooksOnShelf(books, 'wantToRead');
-        const read = this.getBooksOnShelf(books, 'read');
+  render() {
+      const {
+        books,
+        changeShelf
+      } = this.props
+      const currentlyReading = this.getBooksOnShelf(books, 'currentlyReading');
+      const wantToRead = this.getBooksOnShelf(books, 'wantToRead');
+      const read = this.getBooksOnShelf(books, 'read');
         
         return (
           <div className="book-case">
