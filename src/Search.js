@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
+import * as BooksAPI from './BooksAPI'
+
 
 
 
 class Search extends Component {
     state = {
-        query: ''
+        query: '',
+        showingBooks: []
     }
 
     updateQuery = (query) => {
@@ -17,19 +19,16 @@ class Search extends Component {
     clearQuery = () => {
         this.setState({ query: '' })
     }
+
+    updateSearchResults = (query) => {
+        BooksAPI.search(query).then((results) => {
+            this.setState({ showingBooks: results })
+        })
+    }
     
     render() {
         const { books, changeShelf } = this.props
-        const { query } = this.state
-        let showingBooks
-        if (query) {
-          const match = new RegExp(escapeRegExp(query), 'i')
-          showingBooks = books.filter((book) => match.test(book.title))
-          console.log(showingBooks)
-        } else {
-          showingBooks = books
-        }
-    
+        const { query, showingBooks } = this.state
 
         return(
             <div className="search-books">
@@ -49,18 +48,19 @@ class Search extends Component {
                 <input
                     type="text"
                     placeholder="Search by title or author"
-                    value={query}
-                    onChange={(event) => this.updateQuery(event.target.value)}
+                    onChange={(event) => this.updateSearchResults(event.target.value)}
                 />
            
               </div>
               
             </div>
             <div className="search-books-results">
-            <ol className='book-grid'>
-                {showingBooks.map((book) => (
-                    <Book book={ book } changeShelf={ changeShelf }/>
-                ))}
+            <ol className='books-grid'>
+                {showingBooks !== undefined && showingBooks.length > 0 && (showingBooks.map((book, index) => (
+                    <li key={index}>
+                        <Book book={ book } changeShelf={ changeShelf }/>
+                    </li>
+                )))}
               </ol>
             </div>
           </div>
