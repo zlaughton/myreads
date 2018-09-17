@@ -4,6 +4,8 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookCase from './BookCase'
 import Search from './Search'
+import { Link } from 'react-router-dom'
+
 
 class BooksApp extends React.Component {
   state = {
@@ -35,7 +37,7 @@ class BooksApp extends React.Component {
               changeShelf={ this.changeShelf }
             />
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to="/search" className="open-search">Search</Link>
             </div>
           </div>
         )}/>
