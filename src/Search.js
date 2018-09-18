@@ -33,7 +33,12 @@ class Search extends Component {
 
     updateSearchResults = (query) => {
         BooksAPI.search(query).then((results) => {
-            let shelvedResults = this.getShelvedBooks(results)
+            let shelvedResults;
+
+            if (results) {
+                shelvedResults = this.getShelvedBooks(results)
+            }
+
             this.setState({
                 showingBooks: shelvedResults
             })
