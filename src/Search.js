@@ -9,22 +9,33 @@ class Search extends Component {
         showingBooks: []
     }
 
-    updateQuery = (query) => {
-        this.setState({
-            query: query.trim()
-        })
-    }
+    /**
+     * Find books in search results that match books on shelf
+     * @param {array} searchResults
+     * @return {array} shelvedSearchResults - array of bookid:shelfname object pairs
+     */
+    getShelvedBooks = (searchResults) => {
+        const { shelvedBooks } = this.props
 
-    clearQuery = () => {
-        this.setState({
-            query: ''
+        let shelvedSearchResults = searchResults.map((searchedBook) => {
+            for (let shelvedBook of shelvedBooks) {
+                if (shelvedBook.id === searchedBook.id) {
+                    searchedBook.shelf = shelvedBook.shelf;
+                    return searchedBook;
+                }
+            }
+            searchedBook.shelf = 'none';
+            return searchedBook;
         })
+
+        return shelvedSearchResults;
     }
 
     updateSearchResults = (query) => {
         BooksAPI.search(query).then((results) => {
+            let shelvedResults = this.getShelvedBooks(results)
             this.setState({
-                showingBooks: results
+                showingBooks: shelvedResults
             })
         })
     }
