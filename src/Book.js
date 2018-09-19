@@ -5,11 +5,17 @@ const Book = ({book, changeShelf}) => {
 	const coverImage =
 		(book.imageLinks ?
 			`url('${book.imageLinks.thumbnail}')` : '"none"')
-
-	return(
+			
+	const coverStyle = {
+		width: 128,
+		height: 193,
+		backgroundImage: coverImage
+	}
+	
+	return(	
 		<div className="book">
 			<div className="book-top">
-				<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: coverImage }}></div>
+				<div className="book-cover" style={ coverStyle }></div>
 				<div className="book-shelf-changer">
 					<select
 						onChange={(event) => changeShelf(
