@@ -10,11 +10,11 @@ class Search extends Component {
     }
 
     /**
-     * Find books in search results that match books on shelf
+     * Takes an array of books and adds a shelf value to each book
      * @param {array} searchResults
-     * @return {array} shelvedSearchResults - array of bookid:shelfname object pairs
+     * @return {array} shelvedSearchResults
      */
-    getShelvedBooks = (searchResults) => {
+    shelfResults = (searchResults) => {
         const { shelvedBooks } = this.props
 
         let shelvedSearchResults = searchResults.map((searchedBook) => {
@@ -36,7 +36,7 @@ class Search extends Component {
             let shelvedResults;
 
             if (results) {
-                shelvedResults = this.getShelvedBooks(results)
+                shelvedResults = this.shelfResults(results)
             }
 
             this.setState({
@@ -51,38 +51,36 @@ class Search extends Component {
 
         return(
             <div className="search-books">
-            <div className="search-books-bar">
-              <Link
-                to="/"
-                className="close-search">Close</Link>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+                <div className="search-books-bar">
+                    <Link
+                      to="/"
+                      className="close-search">Close</Link>
+                    <div className="search-books-input-wrapper">
+                    {/*
+                    NOTES: The search from BooksAPI is limited to a particular set of search terms.
+                    You can find these search terms here:
+                    https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
 
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input
-                    type="text"
-                    placeholder="Search by title or author"
-                    onChange={(event) => this.updateSearchResults(event.target.value)}
-                />
-           
-              </div>
-              
+                    However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
+                    you don't find a specific author or title. Every search is limited by search terms.
+                    */}
+                    <input
+                        type="text"
+                        placeholder="Search by title or author"
+                        onChange={(event) => this.updateSearchResults(event.target.value)}
+                    />
+                    </div>
+                </div>
+                <div className="search-books-results">
+                    <ol className='books-grid'>
+                        {showingBooks !== undefined && showingBooks.length > 0 && (showingBooks.map((book) => (
+                            <li key={ book.id }>
+                                <Book book={ book } changeShelf={ changeShelf }/>
+                            </li>
+                        )))}
+                    </ol>
+                </div>
             </div>
-            <div className="search-books-results">
-            <ol className='books-grid'>
-                {showingBooks !== undefined && showingBooks.length > 0 && (showingBooks.map((book) => (
-                    <li key={ book.id }>
-                        <Book book={ book } changeShelf={ changeShelf }/>
-                    </li>
-                )))}
-              </ol>
-            </div>
-          </div>
         )
     }
 }
