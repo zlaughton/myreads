@@ -35,7 +35,7 @@ class Search extends Component {
         BooksAPI.search(query).then((results) => {
             let shelvedResults;
 
-            if (results) {
+            if (results && results.length > 0) {
                 shelvedResults = this.shelfResults(results)
             }
 
